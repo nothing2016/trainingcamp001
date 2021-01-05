@@ -1,6 +1,11 @@
 package class01;
 
-public class Test {
+/**
+ * 跳马问题
+ * 给定一个10行9列的棋盘，给定一个点（x,y）和要跳的步数k
+ * 求从（0,0）跳k步，刚好跳到（x,y）有多少种跳法
+ */
+public class Code06_JumpHorse {
 
 	public static int ways1(int x, int y, int k) {
 		return f(x, y, k);

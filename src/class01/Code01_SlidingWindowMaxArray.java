@@ -2,8 +2,17 @@ package class01;
 
 import java.util.LinkedList;
 
+/**
+ * 滑动窗口的最大值问题
+ */
 public class Code01_SlidingWindowMaxArray {
 
+	/**
+	 *
+	 * @param arr 给的数字长度
+	 * @param w 滑动窗口的窗口长度
+	 * @return 多个窗口的最大值数组
+	 */
 	public static int[] getMaxWindow(int[] arr, int w) {
 		if (arr == null || w < 1 || arr.length < w) {
 			return null;
