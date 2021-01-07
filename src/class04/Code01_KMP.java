@@ -1,5 +1,9 @@
 package class04;
 
+/**
+ * KMP算法，用用来比较str中是否包含match,并返回开始的下标值
+ * 时间复杂度可以到达O(N)
+ */
 public class Code01_KMP {
     // O(N)
 	public static int getIndexOf(String s, String m) {
@@ -18,8 +22,10 @@ public class Code01_KMP {
 				x++;
 				y++;
 			} else if (next[y] == -1) { // y == 0
+				// 如果已经匹配到match的0位置了，只能str的当前匹配下标后移动
 				x++;
 			} else {
+				// match的匹配位置要变短
 				y = next[y];
 			}
 		}
@@ -27,6 +33,16 @@ public class Code01_KMP {
 	}
 
 	// M   O(M)
+
+	/**
+	 *
+	 * 求match的前缀和后缀相等的最大值, 如对于最后一个b ，前缀aa = 后缀aa ，所以为2，但跟自身的b是没有关系的
+	 * match: [a  a  b  a  a  b]
+	 * next:  [-1,0, 1, 0, 1, 2]
+	 * 规定next0位置为-1,1位置为0
+	 *  @param match
+	 * @return
+	 */
 	public static int[] getNextArray(char[] match) {
 		if (match.length == 1) {
 			return new int[] { -1 };
@@ -35,14 +51,15 @@ public class Code01_KMP {
 		next[0] = -1;
 		next[1] = 0;
 		int i = 2;
-		// cn代表，cn位置的字符，是当前和i-1位置比较的字符
+		// cn代表next[i - 1]的值，又代表回跳到match的下标
 		int cn = 0;
 		while (i < next.length) {
-			if (match[i - 1] == match[cn]) { // 跳出来的时候
+			if (match[i - 1] == match[cn]) { // 相等的时候，当前的next = i + 1, i 跑到下一个
 				next[i++] = ++cn;
 			} else if (cn > 0) {
 				cn = next[cn];
 			} else {
+				// 如果没有匹配，当前的值就为0， i++
 				next[i++] = 0;
 			}
 		}
